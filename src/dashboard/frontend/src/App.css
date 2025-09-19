@@ -1,0 +1,17 @@
+/* Basic styles for USB Dashboard React App */
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+.App {
+  padding: 2rem;
+}
+
+h1, h2, h3 {
+  color: #333;
+}
+
+/* Add more styles as needed for your components */

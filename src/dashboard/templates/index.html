@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>USB Control Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>USB Control Dashboard</h1>
+    <div id="health-status" style="padding:1em;color:#007bff;font-weight:bold;">Checking backend status...</div>
+    <div id="dashboard-ui" style="display:none;">
+        <div id="ports">
+            <h2>Ports Status</h2>
+            <input type="text" id="search" placeholder="Search devices..." oninput="filterPorts()">
+            <table id="ports-table">
+                <thead>
+                    <tr><th>ID</th><th>Vendor</th><th>Product</th><th>Serial</th><th>Active</th><th>Action</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="energy">
+            <h2>Energy Usage</h2>
+            <canvas id="energy-chart" width="600" height="200"></canvas>
+            <table id="energy-table">
+                <thead>
+                    <tr><th>Device ID</th><th>Timestamp</th><th>Energy (mWh)</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div id="device-modal" class="modal">
+            <div class="modal-content">
+                <span id="close-modal" style="float:right;cursor:pointer">&times;</span>
+                <div id="modal-body"></div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/app.js"></script>
+    <script src="/static/chart.js"></script>
+    <script src="/static/notifications.js"></script>
+    <script>
+    async function waitForBackend() {
+        let statusDiv = document.getElementById('health-status');
+        let dashboardDiv = document.getElementById('dashboard-ui');
+        let tries = 0;
+        while (tries < 30) {
+            try {
+                let res = await fetch('/api/health');
+                let data = await res.json();
+                if (data.status === 'ok') {
+                    statusDiv.textContent = 'Backend is running.';
+                    dashboardDiv.style.display = '';
+                    setTimeout(() => statusDiv.style.display = 'none', 1500);
+                    if (typeof refresh === 'function') refresh();
+                    return;
+                }
+            } catch (e) {
+                statusDiv.textContent = 'Waiting for backend...';
+            }
+            await new Promise(r => setTimeout(r, 1000));
+            tries++;
+        }
+        statusDiv.textContent = 'Backend did not start. Please check logs.';
+    }
+    waitForBackend();
+    </script>
+</body>
+</html>
