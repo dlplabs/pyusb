@@ -4,5 +4,5 @@ Section: utils
 Priority: optional
 Architecture: amd64
 Depends: python3, python3-pyqt5
-Maintainer: Your Name <your@email.com>
+Maintainer: Daniel Pinheiro <daniel.pinheiro@email.com>
 Description: Monitor and control USB ports and energy usage
