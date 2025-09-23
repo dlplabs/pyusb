@@ -1,4 +1,6 @@
+
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -13,13 +15,17 @@ import {
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
+const COLORS = [
+  '#4f8cff', '#ff4f4f', '#4fff8c', '#ffb84f', '#8c4fff', '#4fffd6', '#ffd64f', '#4f8cff'
+];
+
 function EnergyChart({ energy }) {
   const deviceIds = Object.keys(energy);
   const timestamps = deviceIds.length > 0 ? energy[deviceIds[0]].map(log => log.timestamp) : [];
-  const datasets = deviceIds.map(deviceId => ({
+  const datasets = deviceIds.map((deviceId, idx) => ({
     label: `Device ${deviceId}`,
     data: energy[deviceId].map(log => log.energy_mWh),
-    borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+    borderColor: COLORS[idx % COLORS.length],
     fill: false
   }));
 
@@ -43,5 +49,9 @@ function EnergyChart({ energy }) {
     </div>
   );
 }
+
+EnergyChart.propTypes = {
+  energy: PropTypes.object.isRequired
+};
 
 export default EnergyChart;

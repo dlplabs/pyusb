@@ -1,12 +1,27 @@
+
+# Interface for USB device operations
+class IUSBManager:
+    def get_ports_status(self):
+        raise NotImplementedError
+    def set_port_state(self, device_id, enable, vendor_id=None, serial=None):
+        raise NotImplementedError
+    def get_device_energy(self, device_id):
+        raise NotImplementedError
+
+# Concrete implementation using pyusb
 import usb.core
 import usb.util
 import logging
 
-
-class USBManager:
+class USBManager(IUSBManager):
     def _find_devices(self):
         try:
-            return list(usb.core.find(find_all=True))
+            found = usb.core.find(find_all=True)
+            if found is None:
+                return []
+            # Only include usb.core.Device instances
+            from usb.core import Device
+            return [dev for dev in found if isinstance(dev, Device)]
         except Exception as e:
             logging.error(f"USB backend error: {e}")
             return []
@@ -16,26 +31,26 @@ class USBManager:
         status = []
         for dev in devices:
             try:
-                # Try to get serial, fallback to 'unknown' if not available
-                serial = None
-                if dev.iSerialNumber:
+                serial = 'unknown'
+                iSerial = getattr(dev, 'iSerialNumber', None)
+                if iSerial:
                     try:
-                        serial = usb.util.get_string(dev, dev.iSerialNumber)
+                        serial = usb.util.get_string(dev, iSerial)
                     except Exception:
-                        serial = 'unknown'
-                # Try to get product, fallback to 'unknown' if not available
-                product = getattr(dev, 'product', None)
-                if product is None:
+                        pass
+                product = 'unknown'
+                iProduct = getattr(dev, 'iProduct', None)
+                if iProduct:
                     try:
-                        product = usb.util.get_string(dev, dev.iProduct) if hasattr(dev, 'iProduct') and dev.iProduct else 'unknown'
+                        product = usb.util.get_string(dev, iProduct)
                     except Exception:
-                        product = 'unknown'
+                        pass
                 status.append({
-                    'id': dev.idProduct,
-                    'vendor': dev.idVendor,
+                    'id': getattr(dev, 'idProduct', 'unknown'),
+                    'vendor': getattr(dev, 'idVendor', 'unknown'),
                     'product': product,
                     'serial': serial,
-                    'active': dev.is_kernel_driver_active(0) if hasattr(dev, 'is_kernel_driver_active') else None
+                    'active': getattr(dev, 'is_kernel_driver_active', lambda x: None)(0)
                 })
             except Exception as e:
                 logging.error(f"Error reading device info: {e}")
@@ -51,12 +66,12 @@ class USBManager:
     def set_port_state(self, device_id, enable, vendor_id=None, serial=None):
         devices = self._find_devices()
         for dev in devices:
-            match = dev.idProduct == device_id
+            match = getattr(dev, 'idProduct', None) == device_id
             if vendor_id:
-                match = match and (dev.idVendor == vendor_id)
+                match = match and (getattr(dev, 'idVendor', None) == vendor_id)
             if serial:
                 try:
-                    match = match and (usb.util.get_string(dev, dev.iSerialNumber) == serial)
+                    match = match and (usb.util.get_string(dev, getattr(dev, 'iSerialNumber', None)) == serial)
                 except Exception:
                     match = False
             if match:

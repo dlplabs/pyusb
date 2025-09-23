@@ -1,17 +1,79 @@
 /* Basic styles for USB Dashboard React App */
+
 body {
-  font-family: Arial, sans-serif;
-  background: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+  background: #f5f8ff;
   margin: 0;
   padding: 0;
 }
 
-.App {
-  padding: 2rem;
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 24px rgba(80,120,200,0.10);
+  padding: 32px 40px 40px 40px;
 }
 
-h1, h2, h3 {
-  color: #333;
+h1 {
+  color: #4f8cff;
+  font-size: 2.2rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-/* Add more styles as needed for your components */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 32px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(80,120,200,0.07);
+}
+
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+}
+
+th {
+  background: #e3eafc;
+  font-weight: bold;
+  color: #2a3a5a;
+}
+
+tr:nth-child(even) {
+  background: #f0f4fa;
+}
+
+.notification {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: #4f8cff;
+  color: #fff;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(80,120,200,0.15);
+  z-index: 1000;
+  font-size: 1rem;
+}
+
+.notification.error {
+  background: #ff4f4f;
+}
+
+.notification.info {
+  background: #4f8cff;
+}
+
+.chart-container {
+  background: #f8fbff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 4px rgba(80,120,200,0.05);
+  margin-bottom: 32px;
+}

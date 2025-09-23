@@ -1,4 +1,20 @@
+
 import React from 'react';
+import PropTypes from 'prop-types';
+
+function DeviceActionButtons({ deviceId, onManage }) {
+  return (
+    <>
+      <button onClick={() => onManage(deviceId, 'enable')}>Enable</button>
+      <button onClick={() => onManage(deviceId, 'disable')}>Disable</button>
+    </>
+  );
+}
+
+DeviceActionButtons.propTypes = {
+  deviceId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  onManage: PropTypes.func.isRequired
+};
 
 function DeviceTable({ devices, onManage }) {
   return (
@@ -27,8 +43,7 @@ function DeviceTable({ devices, onManage }) {
                 {device.active ? 'Active' : 'Inactive'}
               </td>
               <td>
-                <button onClick={() => onManage(device.id, 'enable')}>Enable</button>
-                <button onClick={() => onManage(device.id, 'disable')}>Disable</button>
+                <DeviceActionButtons deviceId={device.id} onManage={onManage} />
               </td>
             </tr>
           ))}
@@ -37,5 +52,10 @@ function DeviceTable({ devices, onManage }) {
     </div>
   );
 }
+
+DeviceTable.propTypes = {
+  devices: PropTypes.arrayOf(PropTypes.object).isRequired,
+  onManage: PropTypes.func.isRequired
+};
 
 export default DeviceTable;

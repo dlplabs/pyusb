@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=USB Energy Monitor
+Comment=Monitor and control USB ports and energy usage
+Exec=bash -c 'cd /projects/git/pyusb && bash launch_usb_monitor.sh'
+Icon=/projects/git/pyusb/src/dashboard/frontend/public/usb-energy-monitor.png
+Terminal=false
+Type=Application
+Categories=Utility;System;

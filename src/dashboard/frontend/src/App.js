@@ -1,57 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import React from 'react';
 import DeviceTable from './components/DeviceTable';
 import EnergyChart from './components/EnergyChart';
 import Notification from './components/Notification';
+import { useDevices, useEnergy, useNotification } from './hooks';
+import axios from 'axios';
 import './App.css';
 
-const API_BASE = 'http://localhost:5001/api';
-
 function App() {
-  const [devices, setDevices] = useState([]);
-  const [energy, setEnergy] = useState({});
-  const [notification, setNotification] = useState(null);
-
-  useEffect(() => {
-    fetchDevices();
-    fetchEnergy();
-    const interval = setInterval(() => {
-      fetchDevices();
-      fetchEnergy();
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchDevices = async () => {
-    try {
-      const res = await axios.get(`${API_BASE}/devices`);
-      setDevices(res.data);
-    } catch (err) {
-      setNotification({ message: 'Failed to fetch devices', type: 'error' });
-    }
-  };
-
-  const fetchEnergy = async () => {
-    try {
-      await axios.post(`${API_BASE}/energy/update`);
-      const res = await axios.get(`${API_BASE}/energy`);
-      setEnergy(res.data);
-    } catch (err) {
-      setNotification({ message: 'Failed to fetch energy data', type: 'error' });
-    }
-  };
+  const { devices, fetchDevices, error: deviceError } = useDevices();
+  const { energy, fetchEnergy, error: energyError } = useEnergy();
+  const { notification, showNotification, closeNotification } = useNotification();
 
   const manageDevice = async (deviceId, action) => {
     try {
-      const res = await axios.post(`${API_BASE}/devices/${deviceId}/manage`, { action });
+      const res = await axios.post(`http://localhost:5001/api/devices/${deviceId}/manage`, { action });
       if (res.data.success) {
-        setNotification({ message: 'Device state updated.', type: 'info' });
+        showNotification('Device state updated.', 'info');
         fetchDevices();
       } else {
-        setNotification({ message: 'Failed to update device.', type: 'error' });
+        showNotification('Failed to update device.', 'error');
       }
     } catch (err) {
-      setNotification({ message: 'Error updating device.', type: 'error' });
+      showNotification('Error updating device.', 'error');
     }
   };
 
@@ -60,7 +31,13 @@ function App() {
       <h1>USB Control Dashboard</h1>
       <DeviceTable devices={devices} onManage={manageDevice} />
       <EnergyChart energy={energy} />
-      {notification && <Notification {...notification} onClose={() => setNotification(null)} />}
+      {(notification || deviceError || energyError) && (
+        <Notification
+          message={notification?.message || deviceError || energyError}
+          type={notification?.type || 'error'}
+          onClose={closeNotification}
+        />
+      )}
     </div>
   );
 }
