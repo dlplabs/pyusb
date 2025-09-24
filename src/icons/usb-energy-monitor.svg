@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="240" fill="#2196F3" opacity="0.1"/>
+  
+  <!-- USB Symbol -->
+  <path d="M256 96v320M176 256h160M176 176h160" 
+        stroke="#2196F3" stroke-width="32" stroke-linecap="round"/>
+  <rect x="216" y="96" width="80" height="40" rx="8" fill="#2196F3"/>
+  
+  <!-- Gear/Engine elements -->
+  <g transform="translate(256 256)">
+    <!-- Outer gear teeth -->
+    <path d="M0 -160 L20 -180 L40 -160 L20 -140 Z" fill="#4CAF50"/>
+    <path d="M113 -113 L141 -141 L113 -113 L99 -99 Z" fill="#4CAF50"/>
+    <path d="M160 0 L180 20 L160 40 L140 20 Z" fill="#4CAF50"/>
+    <path d="M113 113 L141 141 L113 113 L99 99 Z" fill="#4CAF50"/>
+    <path d="M0 160 L20 180 L40 160 L20 140 Z" fill="#4CAF50"/>
+    <path d="M-113 113 L-141 141 L-113 113 L-99 99 Z" fill="#4CAF50"/>
+    <path d="M-160 0 L-180 20 L-160 40 L-140 20 Z" fill="#4CAF50"/>
+    <path d="M-113 -113 L-141 -141 L-113 -113 L-99 -99 Z" fill="#4CAF50"/>
+    
+    <!-- Inner gear -->
+    <circle cx="0" cy="0" r="100" fill="none" stroke="#4CAF50" stroke-width="24"/>
+  </g>
+  
+  <!-- Energy bolt -->
+  <path d="M256 140L200 280h112l-56 140" 
+        fill="none" stroke="#FFC107" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

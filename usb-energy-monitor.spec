@@ -4,9 +4,9 @@
 a = Analysis(
     ['src/usb_desktop_app.py'],
     pathex=[],
-    binaries=[],
+    binaries=[('/usr/lib/x86_64-linux-gnu/libusb-1.0.so.0', '.')],
     datas=[],
-    hiddenimports=[],
+    hiddenimports=['usb.backend.libusb1', 'usb.core', 'usb.util', 'PyQt5.QtCore', 'PyQt5.QtGui', 'PyQt5.QtWidgets'],
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],

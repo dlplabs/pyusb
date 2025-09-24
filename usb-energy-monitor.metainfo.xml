@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.dlplabs.usb-energy-monitor</id>
+  <metadata_license>MIT</metadata_license>
+  <project_license>MIT</project_license>
+  <name>USB Energy Monitor</name>
+  <summary>Monitor and control USB ports and energy usage</summary>
+  
+  <description>
+    <p>
+      USB Energy Monitor is a comprehensive tool for monitoring and managing USB ports and their energy consumption.
+      Track power usage, manage connected devices, and optimize your USB port energy efficiency.
+    </p>
+    <ul>
+      <li>Real-time monitoring of USB port energy consumption</li>
+      <li>Device connection tracking and management</li>
+      <li>Power usage statistics and visualization</li>
+      <li>USB port control capabilities</li>
+    </ul>
+  </description>
+  
+  <launchable type="desktop-id">usb-energy-monitor.desktop</launchable>
+  
+  <screenshots>
+    <screenshot type="default">
+      <caption>Main dashboard showing USB ports and energy usage</caption>
+      <!-- TODO: Replace with actual hosted screenshot URL -->
+      <!-- <image>https://yourwebsite.com/screenshots/dashboard.png</image> -->
+    </screenshot>
+    <screenshot>
+      <caption>Device management interface</caption>
+      <!-- TODO: Replace with actual hosted screenshot URL -->
+      <!-- <image>https://yourwebsite.com/screenshots/device-management.png</image> -->
+    </screenshot>
+    <screenshot>
+      <caption>Energy monitoring and statistics</caption>
+      <!-- TODO: Replace with actual hosted screenshot URL -->
+      <!-- <image>https://yourwebsite.com/screenshots/energy-stats.png</image> -->
+    </screenshot>
+    <screenshot>
+      <caption>Detailed device information view</caption>
+      <!-- TODO: Replace with actual hosted screenshot URL -->
+      <!-- <image>https://yourwebsite.com/screenshots/device-details.png</image> -->
+    </screenshot>
+  </screenshots>
+  
+  <url type="homepage">https://github.com/dlplabs/pyusb</url>
+  <url type="bugtracker">https://github.com/dlplabs/pyusb/issues</url>
+  
+  <provides>
+    <binary>usb-energy-monitor</binary>
+  </provides>
+
+  <categories>
+    <category>System</category>
+    <category>Monitor</category>
+    <category>Utility</category>
+  </categories>
+
+  <keywords>
+    <keyword>usb</keyword>
+    <keyword>energy</keyword>
+    <keyword>monitor</keyword>
+    <keyword>power</keyword>
+    <keyword>device</keyword>
+    <keyword>control</keyword>
+  </keywords>
+  
+  <releases>
+    <release version="1.0" date="2025-09-24">
+      <description>
+        <p>Initial release of USB Energy Monitor</p>
+        <ul>
+          <li>Real-time USB port monitoring</li>
+          <li>Energy usage tracking</li>
+          <li>Device management interface</li>
+          <li>Power consumption visualization</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
+  
+  <content_rating type="oars-1.1" />
+</component>

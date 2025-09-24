@@ -1,0 +1,52 @@
+name: usb-energy-monitor
+version: '2.0.0'
+summary: Monitor and control USB ports and energy usage
+description: |
+  USB Energy Monitor is a professional-grade tool for monitoring and managing USB devices
+  and their energy consumption. It provides real-time monitoring, control capabilities,
+  and detailed energy usage statistics for all USB devices connected to your system.
+
+  Features:
+  * Real-time USB device monitoring
+  * Power consumption tracking
+  * Device control interface
+  * Energy usage statistics
+  * Enhanced error handling
+  * Production-ready stability
+
+grade: stable
+confinement: strict
+base: core22
+
+apps:
+  usb-energy-monitor:
+    command: bin/usb-energy-monitor-wrapper
+    extensions: [gnome]
+    plugs:
+      - raw-usb
+      - hardware-observe
+      - desktop
+      - desktop-legacy
+      - wayland
+      - x11
+
+parts:
+  usb-energy-monitor:
+    plugin: python
+    source: .
+    build-packages:
+      - python3-dev
+      - libusb-1.0-0-dev
+    stage-packages:
+      - python3-pyqt5
+      - python3-usb
+      - libusb-1.0-0
+    python-packages:
+      - pyusb
+      - PyQt5
+
+  wrapper:
+    plugin: dump
+    source: snap/local
+    organize:
+      usb-energy-monitor-wrapper: bin/

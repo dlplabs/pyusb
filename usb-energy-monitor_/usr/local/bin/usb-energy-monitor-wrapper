@@ -1,0 +1,10 @@
+#!/bin/bash
+export DISPLAY="${DISPLAY:-:0}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export QT_QPA_PLATFORM=xcb
+
+if [ "$(id -u)" -ne 0 ]; then
+    exec sudo "$0" "$@"
+else
+    exec /usr/local/bin/usb-energy-monitor "$@"
+fi

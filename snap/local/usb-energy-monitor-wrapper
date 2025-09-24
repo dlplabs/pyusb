@@ -1,0 +1,6 @@
+#!/bin/bash
+export DISPLAY="${DISPLAY:-:0}"
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+export QT_QPA_PLATFORM=xcb
+
+exec "$SNAP/bin/usb-energy-monitor" "$@"

@@ -1,8 +1,25 @@
 Package: usb-energy-monitor
-Version: 1.0
+Version: 2.0.0
 Section: utils
 Priority: optional
 Architecture: amd64
-Depends: python3, python3-pyqt5
+Depends: python3, python3-pyqt5, python3-usb, libusb-1.0-0
 Maintainer: Daniel Pinheiro <daniel.pinheiro@email.com>
-Description: Monitor and control USB ports and energy usage
+Homepage: https://github.com/dlplabs/pyusb
+Description: Monitor and control USB ports and energy usage - Production Release
+ Professional-grade USB device management and energy monitoring tool.
+ .
+ Features:
+  * Real-time USB device monitoring
+  * Power consumption tracking
+  * Device control interface
+  * Energy usage statistics
+  * Enhanced error handling
+  * Production-ready stability
+ .
+ Version 2.0.0 (Production Release)
+ * Optimized performance
+ * Enhanced stability
+ * Improved error handling
+ * Custom icon integration
+ * Production-ready packaging
